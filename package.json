@@ -1,0 +1,24 @@
+{
+    "name": "tsex",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "ts-node src/index.ts"
+    },
+    "dependencies": {
+        "@types/fs-extra": "^8.0.1",
+        "@types/lodash": "^4.14.149",
+        "@types/node": "^13.1.5",
+        "@types/prettier": "^1.19.0",
+        "fs-extra": "^8.1.0",
+        "lodash": "^4.17.15",
+        "prettier": "^1.19.1",
+        "ts-node": "^8.5.4",
+        "tslint": "^5.20.1",
+        "tslint-config-airbnb": "^5.11.2",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.7.4",
+        "xlsx": "^0.15.4"
+    }
+}
