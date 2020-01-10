@@ -1,18 +1,4 @@
 export default {
-    handleMethodTRLang: {
-        "0": "Otomatik işleme",
-        "1": "Hızlı foto",
-        "2": "Mesaj yollama",
-        "3": "Intercom",
-        "4": "Yayın",
-        "5": "Monitör",
-        "6": "Manuel onaylama uyarı",
-        "7": "Grup işleme",
-        "8": "Yanlış uyarı işlemesi",
-        "30": "İşlenemedi",
-        "31": "İşleniyor",
-        "32": "İşlenecek"
-    },
     handleMethodCNLang: {
         "0": "自动处理",
         "1": "快速拍照",

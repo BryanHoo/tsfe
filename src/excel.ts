@@ -1,11 +1,9 @@
 import * as xlsx from 'xlsx';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as fse from 'fs-extra';
 import * as _ from 'lodash';
+import { prettierConfig } from './config';
 import prettier from 'prettier';
-
-const prettierConfig: prettier.Options = { quoteProps: 'consistent', tabWidth: 4, printWidth: 120 };
 
 export class Excel {
   workbook: xlsx.WorkBook;
@@ -90,10 +88,7 @@ export class Excel {
     const index = data.findIndex(item => item.trim() === flag.trim());
     if (index === -1) throw 'not found translate point comment, please checkout file';
     data.splice(index, 0, strData);
-    fs.writeFileSync(src, prettier.format(data.join('\r\n'), prettierConfig));
-    fse.copy(src, this.getPath([`../dist/${basename}`]), err => {
-      if (err) throw err;
-      console.log(`success ${src}`);
-    });
+    fs.writeFileSync(this.getPath([`../dist/${basename}`]), prettier.format(data.join('\r\n'), prettierConfig));
+    console.log(`success ${src}`);
   }
 }
