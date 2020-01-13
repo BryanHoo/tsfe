@@ -63,3 +63,19 @@ export const alarmType: IConfig = {
   value: 4,
   rowStart: 32
 };
+
+export const wcms4: IConfig = {
+  tabName: 'WCMS4.0',
+  key: 1,
+  value: 4,
+  rowStart: 1,
+  name: 'tr-TR'
+};
+
+export const ads: IConfig = {
+  tabName: 'Alarmtype',
+  key: 1,
+  value: 4,
+  rowStart: 1,
+  rowEnd: 31
+};

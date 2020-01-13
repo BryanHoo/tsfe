@@ -1,5 +1,6 @@
 import { Excel } from './excel';
-import { react, reachHandleMethod, excelPath, alarmType, wcms5, IConfig } from './config';
+import * as path from 'path';
+import { ads, react, wcms4, reachHandleMethod, excelPath, alarmType, wcms5, IConfig } from './config';
 import * as _ from 'lodash';
 
 class Translate extends Excel {
@@ -12,6 +13,8 @@ class Translate extends Excel {
     this.react(react);
     this.reachHandleMethod(reachHandleMethod);
     this.wcms5(wcms5, alarmType);
+    this.wcms4(wcms4);
+    this.ads(ads);
   }
   /**
    * 生成 react 翻译
@@ -59,6 +62,35 @@ class Translate extends Excel {
       sortData[key] = cache[key];
     });
     super.writeIni(sortData, `../dist/lang.ini.js`);
+  }
+
+  private wcms4(config: IConfig) {
+    const { key, value, tabName, rowStart, name } = config;
+    const data = super.sheetToAoa(tabName, rowStart);
+    const group = _.groupBy(data, item => item[0]);
+    const groupData: { [key: string]: string[][] } = {};
+    Object.keys(group).forEach(attr => {
+      const index = attr.split('\\').join(path.sep);
+      groupData[index] = group[attr].map(item => {
+        return [item[key], item[value]];
+      });
+    });
+    Object.keys(groupData).forEach(attr => {
+      const reg = /autoDownload/i;
+      const suffix = /\.xml$/;
+      if (reg.test(attr)) {
+        super.writeWcms4(groupData[attr], path.dirname(attr), name ? name : 'zh-CN', suffix.test(attr) ? 'xml' : 'js');
+      } else {
+        super.writeWcmsJs(groupData[attr], path.dirname(attr));
+      }
+    });
+  }
+
+  private ads(config: IConfig) {
+    const { key, value, tabName, rowStart, rowEnd } = config;
+    const data = super.sheetToAoa(tabName, rowStart, rowEnd);
+    const cache = data.map(item => ({ id: item[key], text: item[value] }));
+    super.writeAds(cache);
   }
 }
 

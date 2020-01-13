@@ -1,6 +1,7 @@
 import * as xlsx from 'xlsx';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as fse from 'fs-extra';
 import * as _ from 'lodash';
 import { prettierConfig } from './config';
 import prettier from 'prettier';
@@ -16,7 +17,7 @@ export class Excel {
    * @param paths 需要合成的路径数组
    */
   protected getPath(paths: string[]) {
-    return path.resolve(__dirname, ...paths);
+    return path.join(__dirname, ...paths);
   }
   /**
    * 生成文件
@@ -24,9 +25,9 @@ export class Excel {
    * @param data 数据
    */
   protected touch(path: string, data: any) {
-    fs.writeFile(this.getPath([path]), data, 'utf8', err => {
+    fse.outputFile(path, data, 'utf8', err => {
       if (err) throw err;
-      console.log(`success ${this.getPath([path])}`);
+      console.log(`success ${path}`);
     });
   }
   /**
@@ -88,7 +89,54 @@ export class Excel {
     const index = data.findIndex(item => item.trim() === flag.trim());
     if (index === -1) throw 'not found translate point comment, please checkout file';
     data.splice(index, 0, strData);
-    fs.writeFileSync(this.getPath([`../dist/${basename}`]), prettier.format(data.join('\r\n'), prettierConfig));
-    console.log(`success ${src}`);
+    const dest = this.getPath([`../dist/${basename}`]);
+    fs.writeFileSync(dest, prettier.format(data.join('\r\n'), prettierConfig));
+    console.log(`success ${dest}`);
+  }
+  /**
+   * 写入 xml
+   * @param data 写入数据
+   * @param pathStr 写入路径
+   * @param name 文件名
+   */
+  protected writeWcms4(data: string[][], pathStr: string, name: string, flag: string) {
+    const dest = this.getPath(['../dist', pathStr, `lang-${name}.${flag}`]);
+    const compiled = _.template(
+      flag === 'xml'
+        ? '<?xml version="1.0" encoding="utf-8" ?>\r\n<Resource>\r\n<% _.forEach(data, function(item) { %><lang id="<%- item[0] %>"><%- item[1] %></lang>\r\n<% }); %></Resource>'
+        : 'var lang = {};\r\nif (lang) {\r\n<% _.forEach(data, function(item) { %><%- item[0] %> = "<%- item[1] %>";\r\n<% }); %>};'
+    );
+    const str = compiled({ data });
+    this.touch(dest, flag === 'xml' ? str : prettier.format(str, prettierConfig));
+  }
+  /**
+   * 写入 4.0 js
+   * @param data 数据
+   * @param pathStr 路径
+   */
+  protected writeWcmsJs(data: string[][], pathStr: string) {
+    const dest = this.getPath(['../dist', pathStr, `lang.js`]);
+    const lang: { [key: string]: string } = {};
+    const langPower: { [key: string]: string } = {};
+    const reg = /(M|C)_/;
+    data.forEach(item => {
+      if (reg.test(item[0])) {
+        const attr = item[0].replace(/^(\'|\")|(\'|\")$/g, '');
+        langPower[attr] = item[1];
+      } else {
+        lang[item[0]] = item[1];
+      }
+    });
+    const str = `(function (window) {var lang=${JSON.stringify(lang)}; var langPower=${JSON.stringify(
+      langPower
+    )};window.lang = window.lang || lang;window.langPower = window.langPower || langPower;return;})(window);`;
+    this.touch(dest, prettier.format(str, prettierConfig));
+  }
+
+  protected writeAds(data: {}[]) {
+    const str = `(function(b) {var a = { ads_eventtype: ${JSON.stringify(
+      data
+    )}};return b.langdb = b.langdb || a;})(window);`;
+    this.touch(this.getPath(['../dist/langdb.js']), prettier.format(str, prettierConfig));
   }
 }

@@ -1,0 +1,35 @@
+var lang = {};
+if (lang) {
+    lang.lan_disk = "Disk";
+    lang.lan_isuse = "İzin ver";
+    lang.lan_size = "Total büyüklük";
+    lang.lan_percent = "Yüzde";
+    lang.lan_occupy = "İşgal edilecek";
+    lang.lan_tip = "İltei";
+    lang.lan_disk_clear = "kaydedilmemiş ayar silinecek, devam etmek ister misin";
+    lang.lan_disk_checkfailed = "Disk kontrol başarısız";
+    lang.lan_save_success = "Başarılı kaydet";
+    lang.lan_save_failed = "Başarısız kaydet";
+    lang.inputError = "Klasör adı hata";
+    lang.lan_grid_group = "Grup ";
+    lang.lan_grid_device = "Cihaz";
+    lang.lan_carlicense = "Plaka";
+    lang.lan_grid_start = "Başlangıç saat";
+    lang.lan_grid_end = "Bitiş saat";
+    lang.lan_systime = "Sistem saat";
+    lang.lan_user = "Kullanıcı";
+    lang.lan_choose_car = "Aracı seç";
+    lang.lan_suredelete = "Bu dönemdeki kayıt datayı silmeye emişn misiniz";
+    lang.lan_deletesuccess = "Kayıt data silme başarılı";
+    lang.lan_deletefailed = "Kayıt data silme başarısız";
+    lang.lan_suredelete2 = "Bu kalemi silmeye emin misiniz";
+    lang.lan_deletefailed2 = "Başarısız silme";
+    lang.add = "Ekle";
+    lang.edit = "Düzelt";
+    lang.chooseAp = "Düzeltiecek kalemi seç";
+    lang.chooseAp2 = "Silinecek kalemi seç";
+    lang.servererror = "Sunucu hatası, lütfen tekrar dene";
+    lang.operateFailure = "İşletme başarısız, lütfen tekrar dene";
+    lang.over = "AP bağlantı max bağlantı sayısından fazla olamaz";
+    lang.bigger = "Max bağlantı sayısı AP bağlantından küçük olamaz";
+}

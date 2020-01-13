@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Resource>
+<lang id="lan_northpanel_title">Temel ayar</lang>
+<lang id="lan_td_folder">Klasör  </lang>
+<lang id="lan_td_cover">Üzerine yaz</lang>
+<lang id="lan_tip_cover">Disk dolduğu zaman en eski kayıdın üzerine yaz</lang>
+<lang id="lan_td_maxcount">Max bağlantı sayısı  </lang>
+<lang id="lan_btn_save">Kaydet</lang>
+<lang id="lan_disk_config">Kaydet</lang>
+<lang id="lan_refresh_disk">Yenile</lang>
+<lang id="lan_deleterecord">Kayıt datayı sil</lang>
+<lang id="lan_VehicleTree">Araç ağacı</lang>
+<lang id="lan_start">Başlangıç tarih</lang>
+<lang id="lan_end">Bitiş tarih</lang>
+<lang id="lan_check_log">Silinmiş logu ara</lang>
+<lang id="lan_delete">Sil</lang>
+<lang id="lan_turnback">Dön </lang>
+<lang id="APName">No.</lang>
+<lang id="ESSID">ESSID</lang>
+<lang id="MaxCon">Max bağlantı sayısı</lang>
+<lang id="AddAP">Ekle</lang>
+<lang id="EditAP">Düzelt</lang>
+<lang id="DeleteAP">Sil</lang>
+<lang id="APManage">AP yönetim</lang>
+<lang id="Sure">Onay</lang>
+<lang id="Cancel">İptal</lang>
+</Resource>

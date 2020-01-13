@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Resource>
+<lang id="lan_westpanel_title">Araç</lang>
+<lang id="lan_northpanel_title">Görev</lang>
+<lang id="lan_centerpanel_title">İndirilecek liste</lang>
+<lang id="lan_btn_highspeed">Yüksek hız</lang>
+<lang id="lan_btn_slowspeed">Düşük hız</lang>
+<lang id="lan_btn_download">İndir</lang>
+<lang id="lan_btn_stop">Dur</lang>
+<lang id="lan_btn_delete">Sil</lang>
+<lang id="lan_speed">Hız:</lang>
+<lang id="lan_filecount">Dosya sayısı</lang>
+<lang id="lan_size">Büyüklük(MB)</lang>
+<lang id="lan_td_device">Cihaz</lang>
+<lang id="lan_td_carlicense">Araç</lang>
+<lang id="lan_td_task">Görev adı</lang>
+<lang id="lan_td_starttime">Başlangıç saat</lang>
+<lang id="lan_td_endtime">Bitiş saat</lang>
+<lang id="lan_td_tasktype">Tip</lang>
+<lang id="lan_td_startexecute">Başlangıç tarih</lang>
+<lang id="lan_td_endexecute">Bitiş tarih</lang>
+<lang id="lan_td_period">Dönem</lang>
+<lang id="lan_td_channel">Kanal</lang>
+</Resource>
