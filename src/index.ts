@@ -11,7 +11,7 @@ class Translate extends Excel {
 
   private init() {
     this.react(react);
-    this.reachHandleMethod(reachHandleMethod);
+    this.reachHandleMethod(reachHandleMethod, alarmType);
     this.wcms5(wcms5, alarmType);
     this.wcms4(wcms4);
     this.ads(ads);
@@ -27,21 +27,41 @@ class Translate extends Excel {
       cache[item[key]] = item[value];
     });
     const strData = `"tr-TR":{translation: ${JSON.stringify(cache, null, 4)}},`;
-    super.insertData(strData, '../cache/i18next.js', '"zh-CN": {');
+    super.insertData(strData, '../dist/i18next.js', new RegExp('zh-CN'), new RegExp('tr-TR'));
     super.writeJson(cache, `../dist/${name}.json`, 'json');
   }
   /**
    * 生成 reactMethod
    */
-  private reachHandleMethod(config: IConfig) {
+  private reachHandleMethod(config: IConfig, config2: IConfig) {
     const { key, value, name, tabName, rowStart } = config;
     const data = super.sheetToAoa(tabName, rowStart);
+    const alarmData = super.sheetToAoa(config2.tabName, config2.rowStart);
     const cache: { [key: string]: string } = {};
+    const cache2: { [key: string]: string } = {};
     data.forEach(item => {
       cache[item[key]] = item[value];
     });
+    alarmData.forEach(item => {
+      const number = item[config2.key].match(/\d+/);
+      if (number) {
+        cache2[number[0]] = item[config2.value];
+      }
+    });
     const dataStr = `handleMethod${name}Lang: ${JSON.stringify(cache, null, 4)},`;
-    super.insertData(dataStr, '../cache/enums.js', 'handleMethodCNLang: {');
+    const dataStr2 = `ceibaAlarmType${name}Lang: ${JSON.stringify(cache2, null, 4)},`;
+    super.insertData(
+      dataStr,
+      '../dist/enums.js',
+      new RegExp('handleMethodCNLang'),
+      new RegExp(`handleMethod${name}Lang`)
+    );
+    super.insertData(
+      dataStr2,
+      '../dist/enums.js',
+      new RegExp('ceibaAlarmTypeCNLang'),
+      new RegExp(`ceibaAlarmType${name}Lang`)
+    );
   }
   /**
    * 生成 wcms5 翻译

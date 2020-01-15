@@ -81,12 +81,13 @@ export class Excel {
    * @param path 需要插入的文件路径
    * @param flag 替换位置标志字符串
    */
-  protected insertData(strData: string, pathStr: string, flag: string) {
+  protected insertData(strData: string, pathStr: string, flag: RegExp, repeat: RegExp) {
     if (!flag) throw `not found flag, file path: ${path}`;
     const src = this.getPath([pathStr]);
     const basename = path.basename(pathStr);
     const data = fs.readFileSync(src, 'utf8').split(/\r\n|\n|\r/gm);
-    const index = data.findIndex(item => item.trim() === flag.trim());
+    if (data.find(item => repeat.test(item))) return;
+    const index = data.findIndex(item => flag.test(item));
     if (index === -1) throw 'not found translate point comment, please checkout file';
     data.splice(index, 0, strData);
     const dest = this.getPath([`../dist/${basename}`]);
